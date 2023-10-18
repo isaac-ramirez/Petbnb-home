@@ -9,6 +9,6 @@ import Finder from '@/components/home/Finder.vue';
 <style lang="scss" scoped>
 #app {
   @include flex(row, center, center);
-  height: 100vh;
+  min-height: 100vh;
 }
 </style>
