@@ -1,0 +1,87 @@
+@mixin flex($directionValue: row, $justify: flex-start, $alignItems: stretch) {
+  display: flex;
+  @if ($directionValue == '_') {
+    flex-direction: row;
+  } @else {
+    flex-direction: $directionValue;
+  }
+  @if ($justify == '_') {
+    justify-content: flex-start;
+  } @else {
+    justify-content: $justify;
+  }
+  @if ($alignItems == '_') {
+    align-items: stretch;
+  } @else {
+    align-items: $alignItems;
+  }
+}
+
+@mixin transition($properties: all, $duration: 0.3s, $timing-function: ease) {
+  transition: $properties $duration $timing-function;
+}
+
+@mixin font(
+  $font-size,
+  $font-weight: normal,
+  $line-height: normal,
+  $color: $primaryFontColor,
+  $letter-spacing: normal,
+  $text-transform: none
+) {
+  font-size: $font-size;
+  font-weight: $font-weight;
+  line-height: $line-height;
+  color: $color;
+  letter-spacing: $letter-spacing;
+  text-transform: $text-transform;
+}
+
+@mixin margin-utilities {
+  @for $i from 0 through 10 {
+    $margin-value: $i * 5px;
+
+    .mt-#{$i} {
+      margin-top: $margin-value !important;
+    }
+
+    .mb-#{$i} {
+      margin-bottom: $margin-value !important;
+    }
+
+    .ml-#{$i} {
+      margin-left: $margin-value !important;
+    }
+
+    .mr-#{$i} {
+      margin-right: $margin-value !important;
+    }
+  }
+}
+@include margin-utilities;
+
+@mixin breakpoint($value) {
+  @if type-of($value) == 'string' {
+    @if $value == 'phone' {
+      @media (max-width: 599px) {
+        @content;
+      }
+    } @else if $value == 'tablet' {
+      @media (min-width: 600px) and (max-width: 959px) {
+        @content;
+      }
+    } @else if $value == 'desktop' {
+      @media (min-width: 960px) {
+        @content;
+      }
+    } @else {
+      @warn "Invalid breakpoint. Please use 'phone', 'tablet', 'desktop', or provide a custom value in pixels.";
+    }
+  } @else if type-of($value) == 'number' and unit($value) == 'px' {
+    @media (max-width: #{$value}) {
+      @content;
+    }
+  } @else {
+    @warn "Invalid value. Please provide a valid value in pixels or a string: 'phone', 'tablet', 'desktop'.";
+  }
+}
