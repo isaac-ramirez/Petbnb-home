@@ -10,18 +10,12 @@
         v-show="sittersItems.length"
         title="At the sitter's home"
         :items="sittersItems"
-        :class="{
-          open: sittersItems.length > 0,
-        }"
         @handle-selected="handleSelectedItems"
       />
       <ButtonSection
         v-show="yourHomeItems.length"
         title="At your home"
         :items="yourHomeItems"
-        :class="{
-          open: yourHomeItems.length > 0,
-        }"
         @handle-selected="handleSelectedItems"
       />
     </section>
