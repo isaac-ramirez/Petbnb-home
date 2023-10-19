@@ -80,9 +80,15 @@ export default function usePetSelection() {
 
   // Filtered elements based on selected pets
   const sittersItems = computed(() =>
-    getCompatibleItems({ items: sittersHome })
+    enabledPets.value.length
+      ? getCompatibleItems({ items: sittersHome })
+      : sittersHome
   );
-  const yourHomeItems = computed(() => getCompatibleItems({ items: yourHome }));
+  const yourHomeItems = computed(() =>
+    enabledPets.value.length
+      ? getCompatibleItems({ items: yourHome })
+      : yourHome
+  );
 
   // Check date type of selected option
   const checkDateType = computed(() => {
@@ -102,9 +108,10 @@ export default function usePetSelection() {
 
   // Reset button selection
   const resetSelection = () => {
-    [...sittersHome, ...yourHome].forEach((item) => {
-      item.selected = false;
-    });
+    const currentSelected = [...sittersHome, ...yourHome].find(
+      (item) => item.selected
+    );
+    currentSelected.selected = false;
   };
 
   // Handle selected pet items
