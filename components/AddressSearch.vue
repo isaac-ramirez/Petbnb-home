@@ -11,11 +11,12 @@
 <script setup>
 import { onMounted, ref } from 'vue';
 import useGooglePlaces from '@/composables/useGooglePlaces';
+const config = useRuntimeConfig();
 
 const addressInput = ref(null);
 const emit = defineEmits(['input']);
 
-const link = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`;
+const link = `https://maps.googleapis.com/maps/api/js?key=${config.public.GOOGLE_MAPS_API_KEY}&libraries=places`;
 
 onMounted(async () => {
   await useGooglePlaces(link);
