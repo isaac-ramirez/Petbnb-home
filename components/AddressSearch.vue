@@ -15,8 +15,7 @@ import useGooglePlaces from '@/composables/useGooglePlaces';
 const addressInput = ref(null);
 const emit = defineEmits(['input']);
 
-const link =
-  'https://maps.googleapis.com/maps/api/js?key=AIzaSyDcQ3iSW7KWmDkrY3nuyBc59g2_ljDs76M&libraries=places';
+const link = `https://maps.googleapis.com/maps/api/js?key=${process.env.GOOGLE_MAPS_API_KEY}&libraries=places`;
 
 onMounted(async () => {
   await useGooglePlaces(link);
